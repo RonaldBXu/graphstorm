@@ -28,12 +28,12 @@ In order to plus users' own GNN models into the GraphStorm Framework, users need
 *Note:* The following commands run within the GraphStorm docker environment. And there should be a folder, "/data", in the docker environment.
 
 **Step 1: Prepare the ACM dataset for using the GraphStorm**
-```shell
+```bash
 python3 /graphstorm/examples/acm_data.py --output-path /data --output-type dgl
 ```
 
 **Step 2: Partition the ACM graph into distributed format**
-```shell
+```bash
 python3 /graphstorm/tools/partition_graph.py \
         --dataset acm\
         --filepath /data \
@@ -46,14 +46,14 @@ python3 /graphstorm/tools/partition_graph.py \
 **Step 3: Run the modified HGT model**
 First, add a file, named `ip_list.txt`, in the `/data/` folder. Its contents is one line of a localhost ip: "127.0.0.1". Or you can use the folowing two commands to create this file.
 
-```shell
+```bash
 touch /data/ip_list.txt
 echo 127.0.0.1 > /data/ip_list.txt
 ```
 
 Then run the below command to train the modified HGT model with GraphStorm.
 
-```shell
+```bash
 python3 -m graphstorm.run.launch \
            --workspace /graphstorm/examples/customized_models/HGT \
            --part-config /data/acm_nc/acm.json \

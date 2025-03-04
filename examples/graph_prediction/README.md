@@ -26,13 +26,13 @@ to perform `super node` prediction for graph prediction tasks.
 ## `Super-node` Graph Data Processing
 
 **Step 1**: Generate super-node format OGBG graph data.
-``` bash
+```bash
 python gen_ogbg_supernode.py --ogbg-data-name molhiv \
                              --output-path ./supernode_raw/
 ```
 
 **Step 2**: Run GraphStorm graph construction command.
-``` bash
+```bash
 python -m graphstorm.gconstruct.construct_graph \
         --conf-file ./supernode_raw/config.json \
         --output-dir ./supernode_gs_1p/ \
@@ -46,7 +46,7 @@ Using the `super-node` method, we turn the graph prediction task into a node pre
 Then we can leverage GraphStorm's node prediction CLIs to perform the graph prediction on 
 **super nodes**. Below is the command for training an RGCN model on the OGBG data.
 
-``` bash
+```bash
 python -m graphstorm.run.gs_node_classification \
           --num-trainers 1 \
           --part-config ./supernode_gs_1p/supernode_molhiv.json \
@@ -58,7 +58,7 @@ Users can find the training configuration file, `supernode_gc.yaml`, located at 
 
 We can also try out other GraphStorm GNN models with commands like the followings.
 
-``` bash
+```bash
 # Use RGAT as the GNN model
 python -m graphstorm.run.gs_node_classification \
           --num-trainers 1 \
@@ -69,7 +69,7 @@ python -m graphstorm.run.gs_node_classification \
           --num-heads 4
 ```
 
-``` bash
+```bash
 # Use HGT as the GNN model
 python -m graphstorm.run.gs_node_classification \
           --num-trainers 1 \
@@ -93,7 +93,7 @@ python -m graphstorm.run.gs_node_classification \
 > following commands to build a dummy super-node format graph dataset. This dummy data can 
 > also be used for debugging the super-node customized GraphStorm models.
 
-``` bash
+```bash
 python dummy_supernode_data.py --num-subgraphs 200 \
                                 --save-path ./dummy_raw/
 

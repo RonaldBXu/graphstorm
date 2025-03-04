@@ -9,17 +9,17 @@ The following commands run within the GraphStorm docker environment, and assume 
 **Step 1: Prepare the MAG dataset for using the GraphStorm.**
 
 Download dataset
-```
+```bash
 mkdir ./DATA
-wget -P ./DATA/MAG https://s3.us-west-2.amazonaws.com/dgl-data/dataset/tgl/MAG/node_features.pt
-wget -P ./DATA/MAG https://s3.us-west-2.amazonaws.com/dgl-data/dataset/tgl/MAG/labels.csv
-wget -P ./DATA/MAG https://s3.us-west-2.amazonaws.com/dgl-data/dataset/tgl/MAG/edges.csv
+wget -q -P ./DATA/MAG https://s3.us-west-2.amazonaws.com/dgl-data/dataset/tgl/MAG/node_features.pt
+wget -q -P ./DATA/MAG https://s3.us-west-2.amazonaws.com/dgl-data/dataset/tgl/MAG/labels.csv
+wget -q -P ./DATA/MAG https://s3.us-west-2.amazonaws.com/dgl-data/dataset/tgl/MAG/edges.csv
 ```
 
 **Step 2: Pre-processing the raw data into GraphStorm/DGL's data structure**
 
 Run the command to convert the data into the required raw format by splitting the edges by time:
-```
+```bash
 python3 gen_graph.py
 ```
 
@@ -33,7 +33,7 @@ These files contain pre-processed graph data that can be recognized and utilized
 
 Afterward, you can use the graph construction tool to create the partitioned graph data with the command below:
 
-```
+```bash
 python3 -m graphstorm.gconstruct.construct_graph \
            --conf-file ./DATA/partition_config.json \
            --output-dir ./DATA/MAG_Temporal \
@@ -47,8 +47,8 @@ Please note that we modified the downloaded data to undirected graph and removed
 
 Run the command below to train the modified TGAT model with GraphStorm for node classification task:
 
-```
-export WORKSPACE=/home/ubuntu/graphstorm/examples/temporal_graph_learning/
+```bash
+export WORKSPACE=/home/ubuntu/graphstorm/examples/temporal_graph_learning
 
 python3 -m graphstorm.run.launch \
     --workspace $WORKSPACE \

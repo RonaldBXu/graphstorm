@@ -72,11 +72,12 @@ def to_bidirect_remove_duplicate(src_nodes, dst_nodes):
 for etype in etypes:
     t = int(etype[1].split('_')[1])
     edge_mask = timestamp == (100 + t)
-    to_bidirect_remove_duplicate
     edge_data = to_bidirect_remove_duplicate(
         src_nodes=new_src_nodes[edge_mask],
         dst_nodes=new_dst_nodes[edge_mask],
     )
+    print(edge_data)
+    print(etype)
     write_data_parquet(edge_data, f'./DATA/edge-{etype[0]}-{etype[1]}-{etype[2]}.parquet')
 
 # add node features to dgl graph
